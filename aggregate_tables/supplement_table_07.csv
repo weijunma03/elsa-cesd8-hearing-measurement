@@ -1,0 +1,11 @@
+﻿Model and group,Largest item,Max item pp,Item RMSE pp,Max pair pp,Pair RMSE pp
+S4 AS01 O0,i3,1.55,0.59,1.41,0.54
+S4 AS01 O1,i3,3.86,1.52,1.15,0.68
+Release i1 O0,i3,1.56,0.58,1.44,0.57
+Release i1 O1,i3,3.85,1.44,1.14,0.55
+Release i4 O0,i3,1.53,0.56,1.37,0.55
+Release i4 O1,i3,3.80,1.42,1.18,0.53
+Release i2 O0,i4,0.49,0.26,1.35,0.47
+Release i2 O1,i4,1.12,0.62,1.47,0.64
+Release i3 O0,i4,0.44,0.17,1.31,0.46
+Release i3 O1,i4,1.05,0.50,1.35,0.64

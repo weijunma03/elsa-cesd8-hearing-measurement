@@ -1,0 +1,16 @@
+*.dta
+*.sav
+*.zsav
+*.rds
+*.rdata
+*.pkl
+*.parquet
+*.zip
+*.7z
+*.pyc
+__pycache__/
+results/
+results_*/
+*.log
+freeze.json
+integrity.json

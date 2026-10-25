@@ -1,0 +1,5 @@
+﻿Released anchor,Parameters,Fit check Q,Check gradient,Min Hessian eigenvalue,Fit gates
+i1,60,61 / 81,4.5e-05,0.000933,Passed
+i4,60,61 / 81,4.61e-05,0.000277,Passed
+i2,60,61 / 81,2.95e-05,0.000391,Passed
+i3,60,61 / 81,2.78e-05,0.000437,Passed

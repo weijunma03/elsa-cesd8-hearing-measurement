@@ -1,0 +1,444 @@
+{
+  "id": "ELSA-W7-MNLFA-anchor-release-uncertainty-20261025",
+  "version": "1.0",
+  "client_date": "2026-10-25",
+  "status": "Prepared but not executed; independent review and implementation freeze required before computation",
+  "analysis_status": "Exploratory follow-up specified after all four release-model point estimates and local residuals had been examined; not preregistration or independent confirmation.",
+  "question": "Uncertainty of twenty common-reference contrasts under four anchor releases and sixteen paired changes of original targets from AS01 S4.",
+  "data": {
+    "domain_n": 7314,
+    "domain_households": 5748,
+    "full_frame_n": 8152,
+    "full_households": 6217,
+    "strata": 9,
+    "df": 6208,
+    "zero_domain_households": 469,
+    "source_sha256": "181c00df9becc0b8f01752db20a0569f6c4afa115172ed944a1e0dec47c52294",
+    "groups": {
+      "O0": 5241,
+      "O1": 2073
+    },
+    "new_exclusions": 0,
+    "missingness": "Unchanged complete-case domain and full positive-weight variance frame; no new exclusions, imputations, weighting schemes or observations."
+  },
+  "models": {
+    "reference": "AS01 S4 slope_adjusted; anchors i1 i4 i2 i3; 54 parameters",
+    "releases": [
+      {
+        "id": "release_i1",
+        "released": "i1",
+        "remaining_anchors": [
+          "i2",
+          "i3",
+          "i4"
+        ],
+        "parameters": 60
+      },
+      {
+        "id": "release_i4",
+        "released": "i4",
+        "remaining_anchors": [
+          "i1",
+          "i2",
+          "i3"
+        ],
+        "parameters": 60
+      },
+      {
+        "id": "release_i2",
+        "released": "i2",
+        "remaining_anchors": [
+          "i1",
+          "i3",
+          "i4"
+        ],
+        "parameters": 60
+      },
+      {
+        "id": "release_i3",
+        "released": "i3",
+        "remaining_anchors": [
+          "i1",
+          "i2",
+          "i4"
+        ],
+        "parameters": 60
+      }
+    ],
+    "parameters": "Accepted Q61 estimates unchanged; re-evaluate scores and Hessians at Q81 and Q121 without optimization.",
+    "structure": "Same eight binary items, probit M2 affective/somatic factors, hearing/centred capped age/female coding, latent mean/variance/correlation specification, positive-loading orientation and parameter bounds.",
+    "release": "Free hearing, age and female coefficients in the item intercept and log loading for exactly one specified anchor; retain every item and the other three anchors; attempt all four in fixed order."
+  },
+  "estimands": {
+    "direction": "O1 minus O0. O0 means at least one ear detects all three 3-kHz tones; O1 means neither ear does. These are screening groups, not clinical diagnoses.",
+    "individual": "At each observed age/sex, subtract O0 from O1 item-positive probability under a common standard-normal reference N(0,1), using each model calibrated item parameters.",
+    "probability": "Phi(b/sqrt(1+a^2)); intercept b and positive loading a incorporate covariates and hearing.",
+    "average": "tau_mj = sum_g (n_g/N) * sum_{i in g}(w_i f_mj(age_i,sex_i))/W_g. Use the same group-normalized weighted empirical age/sex mixture for every model.",
+    "paired": "Delta_mj = tau_mj - tau_0j; model 0 is AS01 S4; paired targets are i5 i6 i7 i8.",
+    "units": "Probability internally; multiply by 100 for percentage points.",
+    "interpretation": "Paired changes measure sensitivity to anchor assumptions, including reference-calibration shifts; they are not observed prevalences, causal effects or amounts of bias removed.",
+    "targets": [
+      {
+        "id": "D_release_i1_i5",
+        "kind": "direct",
+        "model": "release_i1",
+        "item": "i5",
+        "estimand": "tau_release",
+        "null": 0
+      },
+      {
+        "id": "D_release_i1_i6",
+        "kind": "direct",
+        "model": "release_i1",
+        "item": "i6",
+        "estimand": "tau_release",
+        "null": 0
+      },
+      {
+        "id": "D_release_i1_i7",
+        "kind": "direct",
+        "model": "release_i1",
+        "item": "i7",
+        "estimand": "tau_release",
+        "null": 0
+      },
+      {
+        "id": "D_release_i1_i8",
+        "kind": "direct",
+        "model": "release_i1",
+        "item": "i8",
+        "estimand": "tau_release",
+        "null": 0
+      },
+      {
+        "id": "D_release_i1_i1",
+        "kind": "direct",
+        "model": "release_i1",
+        "item": "i1",
+        "estimand": "tau_release",
+        "null": 0
+      },
+      {
+        "id": "D_release_i4_i5",
+        "kind": "direct",
+        "model": "release_i4",
+        "item": "i5",
+        "estimand": "tau_release",
+        "null": 0
+      },
+      {
+        "id": "D_release_i4_i6",
+        "kind": "direct",
+        "model": "release_i4",
+        "item": "i6",
+        "estimand": "tau_release",
+        "null": 0
+      },
+      {
+        "id": "D_release_i4_i7",
+        "kind": "direct",
+        "model": "release_i4",
+        "item": "i7",
+        "estimand": "tau_release",
+        "null": 0
+      },
+      {
+        "id": "D_release_i4_i8",
+        "kind": "direct",
+        "model": "release_i4",
+        "item": "i8",
+        "estimand": "tau_release",
+        "null": 0
+      },
+      {
+        "id": "D_release_i4_i4",
+        "kind": "direct",
+        "model": "release_i4",
+        "item": "i4",
+        "estimand": "tau_release",
+        "null": 0
+      },
+      {
+        "id": "D_release_i2_i5",
+        "kind": "direct",
+        "model": "release_i2",
+        "item": "i5",
+        "estimand": "tau_release",
+        "null": 0
+      },
+      {
+        "id": "D_release_i2_i6",
+        "kind": "direct",
+        "model": "release_i2",
+        "item": "i6",
+        "estimand": "tau_release",
+        "null": 0
+      },
+      {
+        "id": "D_release_i2_i7",
+        "kind": "direct",
+        "model": "release_i2",
+        "item": "i7",
+        "estimand": "tau_release",
+        "null": 0
+      },
+      {
+        "id": "D_release_i2_i8",
+        "kind": "direct",
+        "model": "release_i2",
+        "item": "i8",
+        "estimand": "tau_release",
+        "null": 0
+      },
+      {
+        "id": "D_release_i2_i2",
+        "kind": "direct",
+        "model": "release_i2",
+        "item": "i2",
+        "estimand": "tau_release",
+        "null": 0
+      },
+      {
+        "id": "D_release_i3_i5",
+        "kind": "direct",
+        "model": "release_i3",
+        "item": "i5",
+        "estimand": "tau_release",
+        "null": 0
+      },
+      {
+        "id": "D_release_i3_i6",
+        "kind": "direct",
+        "model": "release_i3",
+        "item": "i6",
+        "estimand": "tau_release",
+        "null": 0
+      },
+      {
+        "id": "D_release_i3_i7",
+        "kind": "direct",
+        "model": "release_i3",
+        "item": "i7",
+        "estimand": "tau_release",
+        "null": 0
+      },
+      {
+        "id": "D_release_i3_i8",
+        "kind": "direct",
+        "model": "release_i3",
+        "item": "i8",
+        "estimand": "tau_release",
+        "null": 0
+      },
+      {
+        "id": "D_release_i3_i3",
+        "kind": "direct",
+        "model": "release_i3",
+        "item": "i3",
+        "estimand": "tau_release",
+        "null": 0
+      },
+      {
+        "id": "P_release_i1_i5",
+        "kind": "paired_change",
+        "model": "release_i1",
+        "item": "i5",
+        "reference": "AS01_S4",
+        "estimand": "tau_release_minus_tau_AS01_S4",
+        "null": 0
+      },
+      {
+        "id": "P_release_i1_i6",
+        "kind": "paired_change",
+        "model": "release_i1",
+        "item": "i6",
+        "reference": "AS01_S4",
+        "estimand": "tau_release_minus_tau_AS01_S4",
+        "null": 0
+      },
+      {
+        "id": "P_release_i1_i7",
+        "kind": "paired_change",
+        "model": "release_i1",
+        "item": "i7",
+        "reference": "AS01_S4",
+        "estimand": "tau_release_minus_tau_AS01_S4",
+        "null": 0
+      },
+      {
+        "id": "P_release_i1_i8",
+        "kind": "paired_change",
+        "model": "release_i1",
+        "item": "i8",
+        "reference": "AS01_S4",
+        "estimand": "tau_release_minus_tau_AS01_S4",
+        "null": 0
+      },
+      {
+        "id": "P_release_i4_i5",
+        "kind": "paired_change",
+        "model": "release_i4",
+        "item": "i5",
+        "reference": "AS01_S4",
+        "estimand": "tau_release_minus_tau_AS01_S4",
+        "null": 0
+      },
+      {
+        "id": "P_release_i4_i6",
+        "kind": "paired_change",
+        "model": "release_i4",
+        "item": "i6",
+        "reference": "AS01_S4",
+        "estimand": "tau_release_minus_tau_AS01_S4",
+        "null": 0
+      },
+      {
+        "id": "P_release_i4_i7",
+        "kind": "paired_change",
+        "model": "release_i4",
+        "item": "i7",
+        "reference": "AS01_S4",
+        "estimand": "tau_release_minus_tau_AS01_S4",
+        "null": 0
+      },
+      {
+        "id": "P_release_i4_i8",
+        "kind": "paired_change",
+        "model": "release_i4",
+        "item": "i8",
+        "reference": "AS01_S4",
+        "estimand": "tau_release_minus_tau_AS01_S4",
+        "null": 0
+      },
+      {
+        "id": "P_release_i2_i5",
+        "kind": "paired_change",
+        "model": "release_i2",
+        "item": "i5",
+        "reference": "AS01_S4",
+        "estimand": "tau_release_minus_tau_AS01_S4",
+        "null": 0
+      },
+      {
+        "id": "P_release_i2_i6",
+        "kind": "paired_change",
+        "model": "release_i2",
+        "item": "i6",
+        "reference": "AS01_S4",
+        "estimand": "tau_release_minus_tau_AS01_S4",
+        "null": 0
+      },
+      {
+        "id": "P_release_i2_i7",
+        "kind": "paired_change",
+        "model": "release_i2",
+        "item": "i7",
+        "reference": "AS01_S4",
+        "estimand": "tau_release_minus_tau_AS01_S4",
+        "null": 0
+      },
+      {
+        "id": "P_release_i2_i8",
+        "kind": "paired_change",
+        "model": "release_i2",
+        "item": "i8",
+        "reference": "AS01_S4",
+        "estimand": "tau_release_minus_tau_AS01_S4",
+        "null": 0
+      },
+      {
+        "id": "P_release_i3_i5",
+        "kind": "paired_change",
+        "model": "release_i3",
+        "item": "i5",
+        "reference": "AS01_S4",
+        "estimand": "tau_release_minus_tau_AS01_S4",
+        "null": 0
+      },
+      {
+        "id": "P_release_i3_i6",
+        "kind": "paired_change",
+        "model": "release_i3",
+        "item": "i6",
+        "reference": "AS01_S4",
+        "estimand": "tau_release_minus_tau_AS01_S4",
+        "null": 0
+      },
+      {
+        "id": "P_release_i3_i7",
+        "kind": "paired_change",
+        "model": "release_i3",
+        "item": "i7",
+        "reference": "AS01_S4",
+        "estimand": "tau_release_minus_tau_AS01_S4",
+        "null": 0
+      },
+      {
+        "id": "P_release_i3_i8",
+        "kind": "paired_change",
+        "model": "release_i3",
+        "item": "i8",
+        "reference": "AS01_S4",
+        "estimand": "tau_release_minus_tau_AS01_S4",
+        "null": 0
+      }
+    ],
+    "excluded": "No new age/sex profile tests, omnibus DIF tests, item deletion, best-anchor search, latent individual scores or treatment effects. Existing AS01 results retain their original sixteen-target multiplicity family."
+  },
+  "joint_variance": {
+    "method": "Observed-Hessian M-estimator sandwich plus empirical-reference linearization; retain full cross-model covariance.",
+    "notation": "s_mi is an unweighted individual negative-loglikelihood score; sbar_mg is its original-weighted group mean; U_m=sum_g(n_g/N)sbar_mg; A_m is the Hessian of the mean normalized criterion; J_mj is the target gradient at the observed reference distribution.",
+    "score_if": "u_mi=[sbar_mg-U_m+(n_g/W_g)w_i(s_mi-sbar_mg)]/N; thetaIF_mi=-A_m^{-1}u_mi. Outside-domain contributions are zero.",
+    "target_if": "v_mji=[fbar_mjg-tau_mj+(n_g/W_g)w_i(f_mji-fbar_mjg)]/N; IF_mji=v_mji+J_mj thetaIF_mi.",
+    "paired_if": "IF_Delta_mji=IF_mji-IF_0ji for the same participant, then sum within the same household. Stack all five models and retain parameter/reference and model/model cross terms.",
+    "paired_identity": "Var(Delta)=Var(tau_m)+Var(tau_0)-2Cov(tau_m,tau_0). Primary computation uses directly differenced influence arrays; verify by full covariance transformation. Never add independent SEs or use marginal CI overlap as a paired test.",
+    "design": "Aggregate both hearing groups within household. Retain all 6217 households in the 8152-row frame, including 469 zero-domain households. Centre within 9 GOR strata; V=sum_h H_h/(H_h-1) sum_c(T_hc-Tbar_h)(T_hc-Tbar_h) transpose. With-replacement working-design approximation, finite-cluster correction, no sampling FPC, fixed final survey weights.",
+    "df": 6208,
+    "primary_tie": "lex_first whole-household GOR rule",
+    "sensitivity_tie": "lex_last for the same three mixed-GOR households; recompute all direct/paired covariance with unchanged influences and parameters; do not select rule by narrower intervals.",
+    "reference": "Linearize group counts, within-group original weight sums, domain total and empirical age/sex mixture jointly. Previously normalized weights and reference distribution are not treated as fixed.",
+    "implementation": "The per-model helper alone does not supply paired covariance. Keep all five models target influence arrays in RAM until constructing the cross-model covariance; then discard them."
+  },
+  "intervals": {
+    "pointwise": "estimate +/- t(1-.05/2,6208)*SE; two-sided 95%.",
+    "family_size": 36,
+    "family": "Twenty direct targets and sixteen paired changes form one new family. Retain 36 if some fail.",
+    "bonferroni": "estimate +/- t(1-.05/(2*36),6208)*SE; family-wise 95% under the stated asymptotic working-design inference.",
+    "reporting": "Show pointwise and Bonferroni columns separately; no p values required; no clipping or significance-based model choice. This family does not retroactively control older AS01 inference or all previous exploration.",
+    "limits": "Crossing zero does not prove invariance/equivalence; a paired interval excluding zero does not prove anchor invalidity or that another model is unbiased."
+  },
+  "numerics": {
+    "primary_q": 81,
+    "check_q": 121,
+    "hessian_step": "Central gradient differences, 1e-4*max(1,abs(theta_k)).",
+    "fixed_half_step": "At Q81 for all five models, repeat Hessian with 5e-5*max(1,abs(theta_k)) and recompute all direct and paired SEs; no refit.",
+    "stationarity": "Maximum absolute unconstrained gradient <=2e-4 at both quadratures; no parameter within 1e-5 of a bound.",
+    "hessian": "Finite symmetric Hessians with minimum eigenvalue >1e-7 at Q81, Q121 and Q81 half-step; no pseudoinverse, ridge or eigenvalue repair.",
+    "raw_hessian_asymmetry": "Before symmetrization, max absolute Hessian asymmetry <= 1e-7*max(1,maximum absolute Hessian entry); otherwise hold model.",
+    "score_identity": "Max absolute difference of normalized individual scores versus analytic criterion gradient <=1e-10.",
+    "se_gate": "Each direct and paired target: abs(SE81-SE121)/max(SE121,1e-8)<=.02 and abs(SE81-SE81half)/max(SE81half,1e-8)<=.02. SEs must be finite and greater than 1e-8 in probability units; hold targets below this resolution rather than claiming precise near-zero paired uncertainty. Save absolute differences and denominators to expose near-zero cancellation. Units are probability.",
+    "covariance": "Finite joint covariance; maximum absolute asymmetry <= 1e-14 + 1e-8*maximum absolute covariance entry; minimum eigenvalue >= -1e-10*max(maximum eigenvalue,1e-16), without repairs; reported variance diagonals strictly positive.",
+    "paired_identity": "At each Q/step, maximum absolute discrepancy of direct-difference covariance versus full joint-covariance linear transformation <=1e-14 + 1e-8*maximum absolute entry of direct-difference covariance, in probability-squared units.",
+    "newton_direct": "At every Hessian evaluation, abs(J_mj*(-A_m^{-1}U_m))<=max(1e-5,.05*SE_mj), in probability units.",
+    "newton_paired": "At every evaluation, abs(J_mj*(-A_m^{-1}U_m)-J_0j*(-A_0^{-1}U_0))<=max(1e-5,.05*SE_Delta_mj). Separate direct-target passes do not imply paired stability.",
+    "base": "Re-evaluate the four AS01 S4 targets on the same framework for joint assembly/gates; preserve their earlier point estimates and published family labels.",
+    "hold_rule": "Release a model five direct intervals only if its model gates and all five direct-target gates pass. Release its four paired intervals only if both model/reference gates and all four paired gates pass. Keep failures with reasons; denominator remains36. A joint covariance construction/identity failure holds all affected paired intervals.",
+    "stop_rule": "No optimization, new starts, extra quadrature orders, changed anchors/estimator/sample, tolerance relaxation or numerical repair to obtain significance. Any further remedy requires a separate dated amendment before execution."
+  },
+  "before_execution": [
+    "Independent review of plan and future runner, including estimand, normalization, covariance and multiplicity.",
+    "Synthetic finite-difference tests of estimating equations and empirical-reference averages with household multipliers applied jointly to all models.",
+    "Synthetic tests for cross-group and zero-domain households, direct versus block-transformed paired covariance, highly correlated models, near-zero paired variance, and row permutation invariance.",
+    "Tests of base/model/paired failure gates, fixed family size36 and invariant point estimates under GOR tie sensitivity.",
+    "New computation directory; freeze reviewed plan, code, loader and passing checks before new real-data variance computations. Verify protected source hashes before/after."
+  ],
+  "future_outputs": [
+    "20 direct and16 paired rows, pointwise/Bonferroni limits, release flag/failure reason",
+    "All Q/half-step, Hessian, gradient, SE, covariance and Newton diagnostics",
+    "Labelled joint aggregate covariance and full tie sensitivities",
+    "Versions, source hashes, duration, completion log and aggregate-only figures"
+  ],
+  "privacy": "No real-data access in this plan-authoring stage. Later computation uses authorized local data with network disabled; no participant, household, pattern, influence-array or latent-score exports; RAM only.",
+  "limits": "Conditional asymptotic working-design inference; no allowance for weight estimation, omitted geographic design, anchor-selection or complete-case-selection uncertainty. Numerical adequacy does not validate structure or anchors. Previous M1R/DWLS simulation coverage does not validate this MNLFA sandwich. No independent replication or empirical coverage calibration claimed.",
+  "no_new_computation_this_stage": true
+}

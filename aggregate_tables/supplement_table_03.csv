@@ -1,0 +1,21 @@
+﻿Released anchor,Target item,Target role,Estimate pp
+i1,i1,Released anchor,1.18
+i1,i5,Original target,1.84
+i1,i6,Original target,-0.21
+i1,i7,Original target,-0.67
+i1,i8,Original target,0.26
+i4,i4,Released anchor,-0.86
+i4,i5,Original target,1.16
+i4,i6,Original target,-0.85
+i4,i7,Original target,-1.25
+i4,i8,Original target,0.26
+i2,i2,Released anchor,0.03
+i2,i5,Original target,1.16
+i2,i6,Original target,-0.68
+i2,i7,Original target,-1.52
+i2,i8,Original target,0.07
+i3,i3,Released anchor,-6.76
+i3,i5,Original target,1.24
+i3,i6,Original target,-0.67
+i3,i7,Original target,-1.41
+i3,i8,Original target,-0.28

@@ -1,0 +1,77 @@
+{
+  "id": "ELSA-W7-M2-covariate-MNLFA-exploratory-pilot-20261024",
+  "status": "Stage-specific plan to be hashed before fitting; post-development exploratory, not prospective preregistration",
+  "question": "How do common-reference CES-D8 item contrasts between hearing-screen groups change when continuous age and sex enter the latent distribution and then the non-anchor response functions?",
+  "scope": "A bounded four-model M2/probit marginal-likelihood pilot with numerical and local-fit diagnostics. No Bayesian shrinkage, forests, anchor selection or new causal analysis in this stage.",
+  "data": {
+    "wave": 7,
+    "unchanged_domain_n": 7314,
+    "domain_households": 5748,
+    "groups": {"O0": 5241, "O1": 2073},
+    "full_positive_weight_frame_n": 8152,
+    "full_frame_households": 6217,
+    "strata": 9,
+    "source_sha256": "181c00df9becc0b8f01752db20a0569f6c4afa115172ed944a1e0dec47c52294",
+    "inclusion": "Reuse frozen final complete-case domain; do not exclude records on the basis of new model results",
+    "covariates": ["hearing01 = 1 for O1, 0 for O0", "age10 = (released age capped at 90 - 70)/10; original -7 explicitly represents 90+", "female = 1 for released indsex 2, 0 for indsex 1"],
+    "missingness_rule": "Stop if age or sex is invalid in the frozen domain; no silent extra exclusion or imputation",
+    "overlap": "Report age-by-sex overlap across hearing groups descriptively; retain original domain and flag sparse cells, no data-driven trimming"
+  },
+  "measurement": {
+    "structure": "M2 correlated affective/somatic factors; affective i1,i4,i5,i6,i7 and somatic i2,i3,i8",
+    "binary_link": "probit, P(Yj=1 | theta,x) = Phi(bj + x*Dj + exp(logaj + x*Ej)*theta_factor)",
+    "anchor_set": "AS01: i1,i4,i2,i3, retained transparently as the prior post hoc reference, not empirically validated",
+    "anchor_constraints": "All direct intercept and log-loading covariate effects on these four anchors are zero for hearing, age and sex. Age/sex invariance is a NEW stronger assumption in this stage.",
+    "factor_location_scale": "Mean = X beta, SD = exp(X gamma) separately for each factor; reference O0, age70, male has means0 and SDs1",
+    "factor_correlation": "rho = tanh(r0+rH*hearing01); no age/sex moderation of correlation",
+    "nonanchor_targets": ["i5", "i6", "i7", "i8"],
+    "no_new_residual_paths": true
+  },
+  "models": [
+    {"id": "hearing_only", "parameters": 30, "latent_moderators": ["hearing"], "nonanchor_intercept_moderators": ["hearing"], "nonanchor_logloading_moderators": ["hearing"]},
+    {"id": "latent_adjusted", "parameters": 38, "latent_moderators": ["hearing", "age", "sex"], "nonanchor_intercept_moderators": ["hearing"], "nonanchor_logloading_moderators": ["hearing"]},
+    {"id": "threshold_adjusted", "parameters": 46, "latent_moderators": ["hearing", "age", "sex"], "nonanchor_intercept_moderators": ["hearing", "age", "sex"], "nonanchor_logloading_moderators": ["hearing"]},
+    {"id": "slope_adjusted", "parameters": 54, "latent_moderators": ["hearing", "age", "sex"], "nonanchor_intercept_moderators": ["hearing", "age", "sex"], "nonanchor_logloading_moderators": ["hearing", "age", "sex"]}
+  ],
+  "estimation": {
+    "criterion": "Mean negative weighted marginal log likelihood, with within-hearing-group weights normalized to the group sample size",
+    "estimator_change": "Old main analyses used DWLS. Compare new covariate models against the new hearing-only marginal-likelihood baseline, not directly attribute changes from old DWLS to covariate adjustment.",
+    "optimizer": "Bounded L-BFGS-B, analytic gradients, deterministic initialization and one fixed perturbed start; report all attempts",
+    "optimizer_maxiter": 1000,
+    "optimizer_ftol": 1e-12,
+    "optimizer_gtol": 1e-7,
+    "projected_gradient_acceptance": 0.0002,
+    "multistart_mean_objective_tolerance": 0.00001,
+    "quadrature": "Independent 2D Gauss-Hermite-normal integration. Fit at21 nodes per dimension and check31. If that numeric check fails, refit at31 and check41; if needed refit41 and check61. No further adaptive changes.",
+    "quadrature_mean_nll_tolerance": 0.00001,
+    "quadrature_gradient_max_tolerance": 0.0002,
+    "quadrature_reference_probability_tolerance": 0.0001,
+    "boundary_rule": "Any parameter within1e-5 of numerical bounds, nonpositive observed information direction, unresolved multistart disagreement or quadrature failure is flagged; do not treat optimization status alone as valid estimation",
+    "numerical_audit": "Independent finite differences, response-pattern probabilities sum to1, stage embedding, weighting scale invariance, synthetic local rank, mandatory observed-Hessian diagnostics at the higher check order using central differences of analytic gradients. Missing Hessian checks mean not numerically certified.",
+    "reference_integration_check": "Compare the closed-form common-reference probabilities with independent adaptive one-dimensional integration over [-10,10] at all observed age/sex profiles and both hearing groups; tolerance1e-4. Fixed-parameter closed-form probabilities are not compared across GH orders. Save target changes between different-order refits if refinement occurs.",
+    "initialization": "First stage uses generic engine initialization; later stages embed the preceding model with new coefficients zero. The second start adds 0.08*sin(1..p) to each coefficient, clipped to0.001 inside fixed bounds. Each quadrature refinement starts from the preceding selected solution and the same fixed perturbation.",
+    "hessian_step": "Central gradient differences: step=1e-4*max(1,abs(parameter)); symmetric Hessian eigenvalues and condition number reported. Positive definite means minimum eigenvalue>1e-7. No standard errors from this matrix."
+  },
+  "estimands": {
+    "primary_display": "For each non-anchor item and each model, O1-minus-O0 endorsement probability averaged over the same fixed standard-normal latent coordinate and over the pooled empirical age/sex distribution using the declared normalized weights",
+    "formula": "At each age/sex: Phi((b+x1D)/sqrt(1+exp(2*(loga+x1E)))) - Phi((b+x0D)/sqrt(1+exp(2*(loga+x0E)))); then take the same age/sex reference-weighted average",
+    "not_used_in_reference": "Fitted hearing-group-specific latent means and variances are not integrated into the reference contrast",
+    "profile_display": "Age60,70,80 separately for male/female, with underlying sample support counts; these are descriptive model profiles, not subgroup hypothesis tests",
+    "interpretation": "Model- and anchor-conditional response contrasts. Not observed prevalence, corrected CES-D scores, clinical diagnosis, hearing effects or treatment effects"
+  },
+  "diagnostics": {
+    "retain_all_models": true,
+    "selection": "No preferred model chosen by p values, desirable signs, or improvement in a single residual",
+    "local_fit": "Within hearing groups, compare survey-weighted observed item endorsement probabilities and all28 pair joint endorsement probabilities with model-implied averages at the observed covariates. Highlight i2/i7 but retain all pairs.",
+    "metric_warning": "Binary joint-probability residuals here are different from old DWLS tetrachoric correlation-moment residuals; do not directly compare their numerical sizes",
+    "inference": "No p values, confidence intervals, causal claims or confirmed-DIF declarations in this first marginal-likelihood implementation. Household/GOR identifiers remain available in RAM for future design-variance work; weights alone do not provide cluster-robust uncertainty."
+  },
+  "history": "Both prior partitions and the pooled sample were already examined. New age/sex models are exploratory. All original analyses and the current manuscript remain unchanged.",
+  "outputs": ["aggregate data audit", "all model attempts and numerical diagnostics", "reference contrasts and age/sex profiles when numerically admissible", "all local item/pair residuals", "source/code hashes", "Chinese HTML stage report"],
+  "privacy": "Participant data stay in local RAM. No participant rows, original IDs, individual latent scores or fitted respondent-level objects are written or transmitted. Only aggregate results and model parameters are saved.",
+  "failure_policy": "Preserve failed fits and diagnostics. Do not simplify the primary structure, replace anchors, add parameters or change the sample after seeing results. Technical implementation corrections require a logged amendment; no silent retries.",
+  "references": [
+    {"title": "A more general model for testing measurement invariance and differential item functioning", "url": "https://pubmed.ncbi.nlm.nih.gov/27266798/", "role": "MNLFA framework; this implementation is a bounded custom extension, not a verbatim software reproduction"},
+    {"title": "Bayesian penalty methods for evaluating measurement invariance in moderated nonlinear factor analysis", "url": "https://pubmed.ncbi.nlm.nih.gov/37289539/", "role": "Possible later extension, not executed here"}
+  ]
+}

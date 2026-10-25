@@ -1,0 +1,11 @@
+﻿Item in symptom direction,"M2 median [min, max]
+percentage points","M1R median [min, max]
+percentage points"
+i1 Depressed,"1.3860 [0.1234, 2.8143]","0.1344 [-1.0384, 1.4193]"
+i2 Everything was an effort,"2.9725 [2.9711, 2.9753]","4.0785 [3.0501, 5.1450]"
+i3 Restless sleep,"-9.4535 [-9.4551, -9.4475]","-8.1645 [-9.0317, -7.1065]"
+i4 Not happy (reverse coded),"-1.1962 [-2.3198, 0.0425]","-1.7761 [-2.6884, -0.9121]"
+i5 Lonely,"2.2343 [1.1250, 3.3459]","1.5065 [0.2717, 2.2927]"
+i6 Did not enjoy life (reverse coded),"-0.3132 [-1.4361, 0.9336]","-0.9252 [-1.7856, -0.1230]"
+i7 Sad,"-2.7932 [-3.5835, -1.7944]","-2.9671 [-4.5999, -1.9740]"
+i8 Could not get going,"2.8717 [2.8714, 2.8724]","3.6565 [2.7196, 4.6245]"

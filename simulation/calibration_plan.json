@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-21",
+  "stage": "Synthetic conditional-anchor calibration; no real DIF",
+  "amends": "../elsa-hearing-measurement-2026-10-20/dif_anchor_simulation_plan.json",
+  "timing": "After implementation and independent synthetic checks (including a two-repeat runner smoke test), before the full 500-repeat-per-scenario calibration. No changes based on interim calibration outcomes.",
+  "changes": [
+    "Simulation cannot establish that any real item is DIF-free. Anchor sets below are oracle constraints in synthetic populations only, not ELSA anchor selection.",
+    "No data-driven anchor selection via non-significant real DIF. Any future discovery selection requires its own calibration and freeze before internal replication.",
+    "The 40% subset already contributed configural-fit information: call it internal replication, not untouched external confirmation.",
+    "Freeze explicit probit response-function parameters with residual variance 1, reference latent means 0 and variances 1. O1 means/variances free. Invariance of raw CFA residual/response scales is not separately identified.",
+    "Use a bounded representative scenario grid first. It does not complete the old full factorial grid or automatically authorize real DIF.",
+    "Family includes 8 two-sided slope/threshold contrasts among 4 nonanchors, with Holm correction; no testing the constrained anchors themselves."
+  ],
+  "model": "M2 with Affect=i1,i4,i5,i6,i7, Somatic=i2,i3,i8. Anchors i1,i4,i2,i3 have equal probit slopes and thresholds across groups; all other slopes/thresholds free.",
+  "generator": {
+    "standardized_loadings": [0.88,0.85,0.58,0.85,0.75,0.85,0.82,0.80],
+    "O0_marginal_endorsement_targets": [0.10,0.16,0.40,0.09,0.10,0.08,0.16,0.17],
+    "interpretation": "Rounded illustrative parameters informed by prior aggregate preflight; no individual ELSA data read. Not calibrated to reproduce every empirical joint probability or floor exactly.",
+    "O1_latent_means": [0.30,0.20],
+    "O1_latent_variances": [1.20,1.10],
+    "group1_probability": 0.2813,
+    "cluster_sizes": "1 or 2; mean household size about 1.27244; nine balanced artificial strata; household latent ICC 0.30; 25% individual group re-draw creates mixed households.",
+    "weights": "lognormal household weights with log SD 0.6, independent of responses and group; NOT a full ELSA selection/nonresponse weight model."
+  },
+  "scenarios": [
+    {"id":"iid_null","n":4380,"rho":0.85,"clustered":false,"weighted":false,"dif":"null"},
+    {"id":"cluster_null","n":4380,"rho":0.85,"clustered":true,"weighted":true,"dif":"null"},
+    {"id":"highcorr_null","n":2934,"rho":0.92,"clustered":true,"weighted":true,"dif":"null"},
+    {"id":"uniform","n":4380,"rho":0.85,"clustered":true,"weighted":true,"dif":"uniform"},
+    {"id":"slope","n":4380,"rho":0.85,"clustered":true,"weighted":true,"dif":"slope"},
+    {"id":"mixed","n":4380,"rho":0.85,"clustered":true,"weighted":true,"dif":"mixed"},
+    {"id":"anchor_contamination","n":4380,"rho":0.85,"clustered":true,"weighted":true,"dif":"anchor_contamination"},
+    {"id":"somatic_contamination","n":4380,"rho":0.85,"clustered":true,"weighted":true,"dif":"somatic_contamination"}
+  ],
+  "DIF_sizes": {"uniform_i7_threshold":0.35,"nonuniform_i8_slope_ratio":1.30,"contaminated_anchor_threshold":0.35},
+  "repetitions": 500,
+  "seeds": "20261021 + 10000 * scenario index (one-based) + repetition index (one-based)",
+  "estimator": "Two-group lavaan DWLS with explicit equality labels. Both variance methods use information.bread=expected. Compare ordinary robust.sem variance (does not account for household clustering) to independently checked stratified household sandwich. This explicitly overrides lavaan 0.7-3 default observed bread so that the comparison isolates moment/design covariance treatment.",
+  "covariance_verification": "Household sandwich cannot be used until iid equal-weight comparison to lavaan robust.sem and cluster bootstrap checks have been documented. If unavailable or invalid, report ordinary variance as a diagnostic only and keep real DIF blocked. The implementation uses binary moment influence functions and a DWLS expected-information/Gauss-Newton derivative. Under model or anchor misspecification it is a diagnostic approximation, not a general misspecification-robust covariance proof; finite weights are treated as supplied constants.",
+  "reporting": "Successes/failures, warnings, Monte Carlo standard error, Wilson 95% interval for binomial rates, slope/threshold bias and coverage, target power, 8-test Holm family-wise false positives. Report conditional-on-success and conservative failure-as-adverse rates.",
+  "numerical_gates": {
+    "admissible_fit_fraction_min":0.98,
+    "null_FWER_nominal":0.05,
+    "null_FWER_Wilson_upper_practical_screen":0.08,
+    "screen_interpretation": "0.08 is a predeclared exploratory tolerance for this 500-repeat screen, NOT a claim of proven 0.05 control.",
+    "clean_anchor_max_absolute_threshold_bias":0.07,
+    "clean_anchor_max_absolute_slope_bias":0.10,
+    "marginal_95_CI_coverage_screen": [0.92,0.98],
+    "power_target":0.80,
+    "power_interpretation": "Report whether the predeclared injected effect reaches 80% Holm-adjusted power. Low power prohibits conclusions of no DIF, not automatically every descriptive analysis."
+  },
+  "bootstrap_check": "On one fixed synthetic cluster_null population sample, 199 whole-household within-stratum bootstrap draws, duplicate each sampled household and preserve original case weights. Compare bootstrap SD with sandwich SE; gross-mismatch check is all ratios 0.75 to 1.33, set before viewing final bootstrap output. This alone is not coverage validation.",
+  "remaining_before_real_inference": [
+    "Substantive justification of actual anchors and model-structure sensitivity (M1R).",
+    "Negative DIF, additional effect sizes, balanced group, both-factor and joint-anchor contamination, empirical weight informativeness and missingness stress scenarios from the broader plan.",
+    "Survey design applicability and independent estimation/inference audit."
+  ]
+}

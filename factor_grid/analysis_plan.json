@@ -1,0 +1,108 @@
+{
+  "id": "ELSA-W7-post-development-conditional-measurement-20261024",
+  "created_utc": "2026-10-24T12:16:41.875249+00:00",
+  "status": "Fixed before this full-sample run; explicitly post-development, not prospective preregistration",
+  "question": "How do conditional CES-D8 symptom-response probability contrasts between hearing-screen groups depend on measurement structure and anchor assumptions?",
+  "design": "Cross-sectional complete-case measurement study; not a hearing-aid treatment or causal study",
+  "original_primary_structure": "M2: correlated affective (i1,i4,i5,i6,i7) and somatic (i2,i3,i8) factors; retain original literature-led primary structural candidate",
+  "auxiliary_structure": "M1R: general factor and i4/i6 residual covariance; supported alternative, not chosen by coverage or fit ranking",
+  "main_analysis": "Report both full 30-anchor grids. M2 is structural main reference; no single anchor is a verified primary invariant set.",
+  "reference_anchor": {
+    "id": "AS01",
+    "items": [
+      "i1",
+      "i4",
+      "i2",
+      "i3"
+    ],
+    "selection": "First enumerated balanced set, also used in synthetic method evaluation. Fixed now for transparent auxiliary display after prior real results were seen; not a validated hearing-invariant anchor.",
+    "labels": [
+      "depressed",
+      "not happy",
+      "everything an effort",
+      "restless sleep"
+    ],
+    "target_items": [
+      "i5",
+      "i6",
+      "i7",
+      "i8"
+    ]
+  },
+  "anchor_grid": "All 30 combinations of two affective and two somatic anchors; no selection by p value, fit or desirable sign",
+  "sample": {
+    "wave": 7,
+    "archive_rows": 9670,
+    "eligible": 7894,
+    "domain_n": 7314,
+    "domain_households": 5748,
+    "O0": 5241,
+    "O1": 2073,
+    "full_positive_weight_people": 8152,
+    "full_households": 6217,
+    "zero_domain_households": 469,
+    "GOR_strata": 9,
+    "design_df": 6208
+  },
+  "sample_definition": "Unchanged frozen loader: core personal interview age50+; consistent bilateral screening; all CES-D8 complete; valid household/GOR; positive finite W7XWGT",
+  "hearing_definition": "O1 neither ear heard all three 3kHz tones; O0 at least one ear heard all three; screening classification, not clinical normal/hearing-loss diagnosis",
+  "missingness": "No imputation; retain frozen complete-case domain and all positive-weight households with zero estimating contribution outside domain; no new exclusion based on model results",
+  "partition": "Use full7314 to estimate exploratory contrasts. Previous4380/2934 both inspected; pooled analysis is neither external validation nor prospective confirmation.",
+  "estimation": "Unchanged DWLS theta probit; sampling.weights.type=design; weights normalized within hearing group; fixed weights; anchor thresholds/loadings equal; free latent location/scale in O1",
+  "estimand": "For every non-anchor j: delta_j=Phi(-t1/sqrt(1+a1^2))-Phi(-t0/sqrt(1+a0^2)), common standard-normal reference. Different structures have different latent coordinates; do not pool them.",
+  "outputs": [
+    "all60 fit statuses and warnings",
+    "240 non-anchor common-reference contrasts if all fits admissible",
+    "1200 probabilities/contrasts at eta -2,-1,0,1,2",
+    "loadings/correlations and observed-minus-implied moment residuals",
+    "all16 item-by-structure anchor sensitivity summaries",
+    "M1R AS01 four auxiliary intervals and Holm p, with lexical-tie SE sensitivity"
+  ],
+  "planned_model_fit_calls": 60,
+  "bootstrap_model_fits": 0,
+  "new_simulations": 0,
+  "inference": {
+    "scope": "Auxiliary M1R AS01 only, conditional and exploratory; no M2 SE/CI, no anchor-grid range confidence intervals",
+    "covariance": "Frozen objective-consistent expected-information/Gauss-Newton delta method, correct model and fixed anchors; not misspecification robust",
+    "design": "Entire positive-weight household skeleton centered within GOR; with-replacement approximation, finite H/(H-1) correction, no FPC or re-estimated survey weights",
+    "primary_tie_rule": "lex_first",
+    "tie_sensitivity": "lex_last changes only assignment of3 mixed-GOR households/6people; identical fitted parameters, no refit",
+    "interval": "estimate +/- t_.975(df6208)*SE; pointwise95%, not simultaneous",
+    "p_values": "two-sided t; Holm n=4 across i5-i8 separately for baseline and tie sensitivity. Does not correct prior model/anchor selection; no confirmatory label or significance-based selection.",
+    "failures": "If any reference SE invalid, preserve reason and suppress the four-item interval table; no alternate anchor substitution"
+  },
+  "numerical_rules": "Retain unchanged fit_conditional convergence, postcheck, positive slopes, covariance eigenvalues>1e-8, loading/rho and rank gates. Same gate for all60.",
+  "descriptive_fit": "Report moment residuals without automatic model switching or data-driven residual paths. Descriptive adequacy does not prove correct structure or anchors.",
+  "grid_summary": "For each structure/item, report min/median/max and signs only when all planned18 affective or10 somatic non-anchor fits are available; otherwise mark incomplete, retain all failures.",
+  "stop_rule": "Exactly60 fixed calls, no replacement/retry, no outcome-driven additions; technical failures preserve intents, require diagnosis. Data/count/hash mismatch stops before fitting.",
+  "history": "Old19/24 calibration unchanged; bootstrap-t availability failure retained; new2000 M1R_null provides conditional support but not automatic whole-study validation; old two500 i5 low-coverage batches also retained.",
+  "privacy": "Local authorized archive, participant rows only in RAM/local stdin; opaque HH codes to R, no source person IDs, no participant/latent-score/model-object exports or remote transfer.",
+  "source_hashes": {
+    "work/elsa-hearing-measurement-2026-10-20/real_configural_plan.json": "2a13ce555c0e3ab659653c1e00f0cb7741b264317c89da3f14d159999aeb7d49",
+    "work/elsa-hearing-measurement-2026-10-20/real_configural_fits.csv": "c758c052d089a7e2e2af9886c1c630658cfc2b10ea6f591b9d659b9dee1046ca",
+    "work/elsa-anchor-structure-2026-10-21/fit_anchor_structure.R": "b91414aafbd3e2571d9f6021624cfdcf8764ee11c6b9003b7e0e05b0dde6f9f7",
+    "work/elsa-anchor-structure-2026-10-21/analysis_plan.json": "4a6b2bb131a106ff1aa7fed83933561ae2ff3ddc2b0435a00f7fa120b3ced4e0",
+    "work/elsa-anchor-structure-2026-10-21/results/reference_integrals.csv": "7b89d72464bafc5702ec8156fa40f126d3f7d2e95eb7b138f3739ca3eb6c1f2c",
+    "work/elsa-anchor-structure-2026-10-21/results/fits.csv": "98ca8a810aa61f064c86c00c0360ca3e09ac836f22220255ca65883b540b03b7",
+    "work/elsa-variance-adapter-2026-10-21/calibration/engine.R": "12eddfa2fb8af5d1952074594c403ec3559eedb8b24ba0944672cc62cec6d442",
+    "work/elsa-variance-adapter-2026-10-21/design/frame_loader.py": "538ca3dc18eebccd516741692e64f55e32914e0c7b9043d23b877f59da0947e5",
+    "work/elsa-variance-adapter-2026-10-21/method/full_design_sandwich.R": "4c941b957745daaade2b1ad3fb66360e289d0a95372f463774c1c4194efcc301",
+    "work/elsa-method-candidates-2026-10-22/interval/studentized_adapter.R": "a535409f5078d0a0cc16fbb1bcd1ba88340674b38db9e013bcd945a2cbbb0ac1",
+    "work/elsa-analytic-evaluation-2026-10-24/validation/summary.json": "fbc939d1bfaf2b2f4574137e26031ec41c7455a49051d39ee387ed7073c12758",
+    "work/elsa-analytic-evaluation-2026-10-24/review/validation_results_qa.json": "a5e0455a8b3c3388b9a2b5e8ceef9608e0439fd50956017dcd7d88d350463d66",
+    "work/elsa-real-analysis-2026-10-24/run_analysis.R": "f8fbd21ba50a1a8bba21b61494ae26c55e2f13b490322b468bd4a29c9230caea",
+    "work/elsa-real-analysis-2026-10-24/run_local.py": "9ed6133a248b4ef5f228b8a20f715a5361f4463264014df5dc96cd899884f674",
+    "work/elsa-real-analysis-2026-10-24/review/model_decision_review.json": "96ee5056ac81a86e8e459d94a318d4d54bfa4901dbac1ea45f0e6147b390eaa4",
+    "work/elsa-real-analysis-2026-10-24/review/anchor_decision_review.json": "7a4ad4b97c677b744764ca53bc6096d181d3de56b3a4210599df32762c3f0f6b"
+  },
+  "sources": [
+    {
+      "url": "https://journals.sagepub.com/doi/10.1177/10731911221138930",
+      "role": "Primary ELSA CES-D8 structure paper; gender/longitudinal analyses do not certify hearing anchors"
+    },
+    {
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/p.adjust.html",
+      "role": "Official R documentation for Holm p adjustment; not validation of underlying conditional p values"
+    }
+  ]
+}

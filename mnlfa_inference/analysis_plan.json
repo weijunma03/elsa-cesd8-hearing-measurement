@@ -1,0 +1,133 @@
+{
+  "id": "ELSA-W7-MNLFA-working-design-and-anchor-release-20261025",
+  "status": "Exploratory follow-up specified after prior point estimates were examined; freeze required before new calculations",
+  "scope": "Working-design uncertainty for all four existing AS01 fits and one-at-a-time release of each AS01 anchor for S4; no new data/sample, clinical or causal claims",
+  "data": {
+    "domain_n": 7314,
+    "domain_households": 5748,
+    "full_frame_n": 8152,
+    "full_households": 6217,
+    "strata": 9,
+    "df": 6208,
+    "zero_domain_households": 469,
+    "source_sha256": "181c00df9becc0b8f01752db20a0569f6c4afa115172ed944a1e0dec47c52294",
+    "groups": {
+      "O0": 5241,
+      "O1": 2073
+    },
+    "new_exclusions": 0
+  },
+  "variance": {
+    "models": [
+      "hearing_only",
+      "latent_adjusted",
+      "threshold_adjusted",
+      "slope_adjusted"
+    ],
+    "parameters": "Existing q61 estimates unchanged",
+    "primary_q": 81,
+    "check_q": 121,
+    "hessian_step": 0.0001,
+    "hessian_min_eigenvalue": 1e-7,
+    "max_gradient": 0.0002,
+    "max_se_relative_difference": 0.02,
+    "se_relative_denominator_floor": 1e-8,
+    "newton_target_absolute_floor": 0.00001,
+    "newton_target_fraction_se": 0.05,
+    "method": "Observed-Hessian M-estimator sandwich, with within-hearing group n_g/W_g normalization and empirical reference distribution both linearized; covariance includes their cross term",
+    "score_formula": "s_i=d negative log p_i/dtheta; U=sum_g(n_g/N)*sbar_g; u_i=D_i/N*((sbar_g-U)+(n_g/W_g)*w_i*(s_i-sbar_g)); thetaIF_i=-A^{-1}u_i",
+    "target_formula": "tau=sum_g(n_g/N)*fbar_g; v_i=D_i/N*((fbar_g-tau)+(n_g/W_g)*w_i*(f_i-fbar_g)); totalIF_i=v_i+J*thetaIF_i. Fixed age/sex profiles have v_i=0.",
+    "design": "Household sums combine both hearing groups, zero contributions for domain-excluded cases/households, all6217 households centered within9GOR; WR approximation with H_h/(H_h-1) finite-cluster correction, no FPC. Published final survey weights treated fixed.",
+    "official_basis": "Existing verified ELSA user guide table5.1/footnote4 recommends household IDs and GOR from wave3; this implements that public-data design recommendation, not reconstruction of original geographical PSUs or weight-estimation uncertainty.",
+    "primary_tie_rule": "lex_first",
+    "tie_sensitivity": "lex_last; only three mixed-GOR households change whole-household stratum; same scores/point estimates, no refit",
+    "intervals": "Pointwise95% t(df6208) for16 average item targets and96 prespecified profiles. Additionally Bonferroni95% intervals across16 average targets (planned family retained even if some fail). No p values or significance-based model choice; profile intervals not simultaneous or interaction tests.",
+    "fixed_reference_diagnostic": "Retain parameter-only SE as a diagnostic alongside primary total SE; not substitute it based on narrower width",
+    "gate": "If either Q fails stationarity/Hessian checks, any mean or fixed-profile SE fails2% stability, or Newton target correction exceeds max(1e-5,0.05*SE), suppress scientific CIs for that model and preserve all diagnostics. No unplanned refinement/refit.",
+    "limits": "Asymptotic working-design inference conditional on models/anchors and observed complete-case domain; no new coverage simulation or formal design calibration; not robust to false-anchor scientific meaning or unidentified models"
+  },
+  "anchors": {
+    "stage": "slope_adjusted",
+    "reference": "AS01 [i1,i4,i2,i3]",
+    "runs": [
+      {
+        "id": "release_i1",
+        "released": 0,
+        "anchors": [
+          3,
+          1,
+          2
+        ]
+      },
+      {
+        "id": "release_i4",
+        "released": 3,
+        "anchors": [
+          0,
+          1,
+          2
+        ]
+      },
+      {
+        "id": "release_i2",
+        "released": 1,
+        "anchors": [
+          0,
+          3,
+          2
+        ]
+      },
+      {
+        "id": "release_i3",
+        "released": 2,
+        "anchors": [
+          0,
+          3,
+          1
+        ]
+      }
+    ],
+    "parameters_each": 60,
+    "constraints": "Release all hearing/age/sex direct intercept and log-loading coefficients for exactly one original anchor. Keep all8 items and M2 factor structure. Each factor retains at least1 anchor; numerical local-identification gates still required.",
+    "initialization": "Transfer common named parameters from prior S4; new coefficients0. Start2 fixed0.08*sin(1..p) perturbation clipped0.001 inside unchanged bounds. No choosing starting anchor based on results.",
+    "quadrature_pairs": [
+      [
+        61,
+        81
+      ],
+      [
+        81,
+        121
+      ]
+    ],
+    "maxiter": 1000,
+    "ftol": 1e-12,
+    "gtol": 1e-7,
+    "maxls": 40,
+    "projected_gradient_tolerance": 0.0002,
+    "multistart_nll_tolerance": 0.00001,
+    "quadrature_nll_tolerance": 0.00001,
+    "quadrature_gradient_tolerance": 0.0002,
+    "hessian_min_eigenvalue": 1e-7,
+    "boundary_tolerance": 0.00001,
+    "reference_integration_tolerance": 0.0001,
+    "outputs": "All attempts; all5 nonanchor reference contrasts per fit; original4-target comparison with S4; numerical diagnostics and local item/pair residuals. No intervals for release fits or ranges. Failed scientific contrasts suppressed, diagnostic values retained distinctly.",
+    "interpretation": "Limited one-at-a-time assumption-release sensitivity, not comprehensive anchor validation. Remaining anchors stay assumed invariant. Cross-anchor contrasts include changes of reference calibration; no bias decomposition or best-anchor selection."
+  },
+  "privacy": "Authorized local participant data and pattern/household scores remain RAM-only; no participant, pattern, household or latent-score export. Aggregate matrices, results and logs only; network disabled in computation.",
+  "previous_stage": "work/elsa-mnlfa-precision-2026-10-24",
+  "sources": [
+    {
+      "url": "https://r-survey.r-forge.r-project.org/pkgdown/docs/reference/svyrecvar.html",
+      "role": "Linearized-variable clustered/stratified variance framework"
+    },
+    {
+      "url": "https://r-survey.r-forge.r-project.org/pkgdown/docs/reference/svydesign.html",
+      "role": "Survey design and with-replacement convention"
+    },
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/27266798/",
+      "role": "MNLFA measurement model framework"
+    }
+  ]
+}
